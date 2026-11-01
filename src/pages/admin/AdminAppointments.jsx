@@ -28,7 +28,7 @@ export default function AdminAppointments() {
           <table className="table">
             <thead>
               <tr>
-                <th>Patient</th><th>Doctor / Service</th><th>Type</th><th>Date & Time</th><th>Details</th><th>Status</th><th></th>
+                <th>Patient</th><th>Doctor / Service</th><th>Type</th><th>Booked On</th><th>Appointment For</th><th>Details</th><th>Status</th><th></th>
               </tr>
             </thead>
             <tbody>
@@ -37,6 +37,7 @@ export default function AdminAppointments() {
                   <td>{a.name}<div className="muted">{a.email}</div></td>
                   <td>{a.doctor}</td>
                   <td>{a.specialty}</td>
+                  <td>{new Date(a.id).toLocaleString()}</td>
                   <td>{a.date}<div className="muted">{a.time}</div></td>
                   <td>{a.symptoms}</td>
                   <td>
