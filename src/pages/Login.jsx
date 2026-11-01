@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useAdmin } from "../context/AdminContext";
 
 export default function Login() {
   const { login } = useAuth();
+  const { adminLogout } = useAdmin();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || "/";
@@ -15,8 +17,12 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const result = login(form.email, form.password);
-    if (result.ok) navigate(from);
-    else setError(result.message);
+    if (result.ok) {
+      adminLogout(); // sign the admin out so only the customer is active
+      navigate(from);
+    } else {
+      setError(result.message);
+    }
   };
 
   return (

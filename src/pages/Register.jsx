@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useAdmin } from "../context/AdminContext";
 
 export default function Register() {
   const { register, login } = useAuth();
+  const { adminLogout } = useAdmin();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || "/";
@@ -24,6 +26,7 @@ export default function Register() {
       return;
     }
     login(form.email, form.password);
+    adminLogout();
     navigate(from);
   };
 

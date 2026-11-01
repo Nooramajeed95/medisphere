@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "../../context/AdminContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function AdminLogin() {
   const { adminLogin } = useAdmin();
+  const { logout } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
@@ -13,8 +15,12 @@ export default function AdminLogin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const result = adminLogin(form.username, form.password);
-    if (result.ok) navigate("/admin");
-    else setError(result.message);
+    if (result.ok) {
+      logout(); // sign the customer out so only the admin is active
+      navigate("/admin");
+    } else {
+      setError(result.message);
+    }
   };
 
   return (
