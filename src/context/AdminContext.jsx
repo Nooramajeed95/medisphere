@@ -5,12 +5,15 @@ const AdminContext = createContext();
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "admin123";
 
+// remove the old "remembered forever" login from earlier versions
+localStorage.removeItem("medisphere-admin");
+
 export function AdminProvider({ children }) {
-  const [isAdmin, setIsAdmin] = useState(() => localStorage.getItem("medisphere-admin") === "yes");
+  const [isAdmin, setIsAdmin] = useState(() => sessionStorage.getItem("medisphere-admin") === "yes");
 
   const adminLogin = (username, password) => {
     if (username === ADMIN_USER && password === ADMIN_PASS) {
-      localStorage.setItem("medisphere-admin", "yes");
+      sessionStorage.setItem("medisphere-admin", "yes");
       setIsAdmin(true);
       return { ok: true };
     }
@@ -18,7 +21,7 @@ export function AdminProvider({ children }) {
   };
 
   const adminLogout = () => {
-    localStorage.removeItem("medisphere-admin");
+    sessionStorage.removeItem("medisphere-admin");
     setIsAdmin(false);
   };
 
