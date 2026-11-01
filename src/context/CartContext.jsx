@@ -1,16 +1,24 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem("medisphere-cart");
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem("medisphere-cart");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
+  const [toast, setToast] = useState(null);
+  const timer = useRef(null);
 
   useEffect(() => {
     localStorage.setItem("medisphere-cart", JSON.stringify(cart));
   }, [cart]);
+
+  const closeToast = () => setToast(null);
 
   const addToCart = (product) => {
     setCart((prev) => {
@@ -20,6 +28,9 @@ export function CartProvider({ children }) {
       }
       return [...prev, { ...product, qty: 1 }];
     });
+    setToast(`${product.name} added to cart`);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setToast(null), 4000);
   };
 
   const removeFromCart = (id) => setCart((prev) => prev.filter((i) => i.id !== id));
@@ -35,7 +46,9 @@ export function CartProvider({ children }) {
   const count = cart.reduce((sum, i) => sum + i.qty, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQty, clearCart, total, count }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, updateQty, clearCart, total, count, toast, closeToast }}
+    >
       {children}
     </CartContext.Provider>
   );

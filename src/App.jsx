@@ -13,6 +13,8 @@ import Orders from "./pages/Orders";
 import Consultation from "./pages/Consultation";
 import ServiceDetails from "./pages/ServiceDetails";
 import VerseBar from "./components/VerseBar";
+import Toast from "./components/Toast";
+
 
 export default function App() {
   return (
