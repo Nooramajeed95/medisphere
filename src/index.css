@@ -215,3 +215,5 @@ body { overflow-x: hidden; }
 .navbar { border: none; padding-top: 6px; padding-bottom: 10px; }
 .versebar { padding: 8px 12px 2px; }
 .datebar { padding: 0 0 8px; }
+
+:root:not([data-theme="dark"]) { --bar: #1d4a8a; --footer: #1d4a8a; }
