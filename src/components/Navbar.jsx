@@ -7,6 +7,7 @@ import { useAdmin } from "../context/AdminContext";
 export default function Navbar() {
   const { count } = useCart();
   const { user, logout } = useAuth();
+  const { isAdmin } = useAdmin();
   const navigate = useNavigate();
   const [dark, setDark] = useState(() => localStorage.getItem("medisphere-theme") === "dark");
 
@@ -22,11 +23,15 @@ export default function Navbar() {
 
   return (
     <header className="navbar">
-      <Link to="/" className="logo">💊 MediSphere</Link>
+      <Link to="/" className="logo">
+        <img className="logo-img" src="/images/Logo.jpg" alt="MediSphere logo" />
+        MediSphere
+      </Link>
       <nav>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/products">Pharmacy</NavLink>
         <NavLink to="/consultation">Consultation</NavLink>
+        {isAdmin && <NavLink to="/admin">Admin</NavLink>}
         <NavLink to="/cart">Cart ({count})</NavLink>
         {user ? (
           <>

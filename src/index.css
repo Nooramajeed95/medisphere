@@ -211,3 +211,7 @@ body { overflow-x: hidden; }
 
 .logo { display: flex; align-items: center; gap: 10px; }
 .logo-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.7); }
+
+.navbar { border: none; padding-top: 6px; padding-bottom: 10px; }
+.versebar { padding: 8px 12px 2px; }
+.datebar { padding: 0 0 8px; }
