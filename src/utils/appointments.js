@@ -8,15 +8,20 @@ const readAll = () => {
   }
 };
 
+const writeAll = (list) => localStorage.setItem(KEY, JSON.stringify(list));
+
+export const getAllAppointments = () => readAll().slice().reverse();
+
 export const getUserAppointments = (email) =>
   readAll().filter((a) => a.email === email).reverse();
 
-export const addAppointment = (appt) => {
-  const all = readAll();
-  localStorage.setItem(KEY, JSON.stringify([...all, { ...appt, id: Date.now() }]));
-};
+export const addAppointment = (appt) =>
+  writeAll([...readAll(), { ...appt, id: Date.now() }]);
 
-export const cancelAppointment = (id) => {
-  const all = readAll().map((a) => (a.id === id ? { ...a, status: "Cancelled" } : a));
-  localStorage.setItem(KEY, JSON.stringify(all));
-};
+export const cancelAppointment = (id) =>
+  writeAll(readAll().map((a) => (a.id === id ? { ...a, status: "Cancelled" } : a)));
+
+export const updateAppointmentStatus = (id, status) =>
+  writeAll(readAll().map((a) => (a.id === id ? { ...a, status } : a)));
+
+export const deleteAppointment = (id) => writeAll(readAll().filter((a) => a.id !== id));

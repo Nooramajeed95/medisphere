@@ -1,5 +1,5 @@
 const KEY = "medisphere-orders";
-const STATUSES = ["Pending", "Processing", "Shipped", "Delivered"];
+const FLOW = ["Pending", "Processing", "Shipped", "Delivered"];
 
 const readAll = () => {
   try {
@@ -9,22 +9,32 @@ const readAll = () => {
   }
 };
 
+const writeAll = (list) => localStorage.setItem(KEY, JSON.stringify(list));
+
+export const getAllOrders = () => readAll().slice().reverse();
+
 export const getUserOrders = (email) =>
   readAll().filter((o) => o.email === email).reverse();
 
 export const addOrder = (order) => {
   const orders = readAll();
-  const id = 1001 + orders.length;
-  localStorage.setItem(KEY, JSON.stringify([...orders, { ...order, id }]));
+  const id = orders.reduce((max, o) => Math.max(max, o.id), 1000) + 1;
+  writeAll([...orders, { ...order, id }]);
   return id;
 };
 
-// Demo helper: acts like the admin moving the order forward
+export const updateOrderStatus = (id, status) =>
+  writeAll(readAll().map((o) => (o.id === id ? { ...o, status } : o)));
+
+export const deleteOrder = (id) => writeAll(readAll().filter((o) => o.id !== id));
+
+// Used by the old demo button on the customer's Orders page
 export const advanceStatus = (id) => {
-  const orders = readAll().map((o) => {
-    if (o.id !== id) return o;
-    const next = STATUSES.indexOf(o.status) + 1;
-    return next < STATUSES.length ? { ...o, status: STATUSES[next] } : o;
-  });
-  localStorage.setItem(KEY, JSON.stringify(orders));
+  writeAll(
+    readAll().map((o) => {
+      if (o.id !== id) return o;
+      const next = FLOW.indexOf(o.status) + 1;
+      return next > 0 && next < FLOW.length ? { ...o, status: FLOW[next] } : o;
+    })
+  );
 };

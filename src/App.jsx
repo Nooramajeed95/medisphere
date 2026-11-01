@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import DateBar from "./components/DateBar";
+import VerseBar from "./components/VerseBar";
 import Footer from "./components/Footer";
+import Toast from "./components/Toast";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
@@ -12,9 +14,11 @@ import Register from "./pages/Register";
 import Orders from "./pages/Orders";
 import Consultation from "./pages/Consultation";
 import ServiceDetails from "./pages/ServiceDetails";
-import VerseBar from "./components/VerseBar";
-import Toast from "./components/Toast";
-
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminLayout from "./pages/admin/AdminLayout";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminOrders from "./pages/admin/AdminOrders";
+import AdminAppointments from "./pages/admin/AdminAppointments";
 
 export default function App() {
   return (
@@ -34,12 +38,17 @@ export default function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/consultation" element={<Consultation />} />
           <Route path="/services/:slug" element={<ServiceDetails />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="appointments" element={<AdminAppointments />} />
+          </Route>
           <Route path="*" element={<h2>Page not found</h2>} />
         </Routes>
       </main>
       <Footer />
       <Toast />
-
     </>
   );
 }
