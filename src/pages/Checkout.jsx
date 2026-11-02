@@ -1,3 +1,4 @@
+import { useProducts } from "../context/ProductsContext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
@@ -7,6 +8,7 @@ import { addOrder } from "../utils/orders";
 export default function Checkout() {
   const { cart, total, clearCart } = useCart();
   const { user } = useAuth();
+  const { reduceStock } = useProducts();
   const [form, setForm] = useState({
     name: user ? user.name : "",
     phone: user ? user.phone : "",
@@ -28,6 +30,7 @@ export default function Checkout() {
       status: "Pending",
       date: new Date().toLocaleString(),
     });
+    reduceStock(cart.map((i) => ({ id: i.id, qty: i.qty })));
     setOrderId(id);
     clearCart();
   };

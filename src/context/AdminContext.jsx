@@ -2,8 +2,8 @@ import { createContext, useContext, useState } from "react";
 
 const AdminContext = createContext();
 
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "admin123";
+const ADMIN_USER = "Noor";
+const ADMIN_PASS = "noor987";
 
 // remove the old "remembered forever" login from earlier versions
 localStorage.removeItem("medisphere-admin");

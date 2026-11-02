@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import products from "../../data/products";
+import { useProducts } from "../../context/ProductsContext";
 import doctors from "../../data/doctors";
 import { getAllOrders } from "../../utils/orders";
 import { getAllAppointments } from "../../utils/appointments";
@@ -13,6 +13,7 @@ const readUsers = () => {
 };
 
 export default function Dashboard() {
+  const { products } = useProducts();
   const orders = getAllOrders();
   const appointments = getAllAppointments();
   const revenue = orders

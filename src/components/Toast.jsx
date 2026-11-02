@@ -7,7 +7,7 @@ export default function Toast() {
 
   return (
     <div className="toast">
-      <span>✅ {toast}</span>
+      <span>{toast}</span>
       <Link to="/cart" className="btn small" onClick={closeToast}>View Cart</Link>
       <button className="toast-x" onClick={closeToast}>✕</button>
     </div>

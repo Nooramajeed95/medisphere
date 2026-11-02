@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import products from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 import services from "../data/services";
 import ProductCard from "../components/ProductCard";
 
 export default function Home() {
+  const { products } = useProducts();
   const [sent, setSent] = useState(false);
 
   const handleContact = (e) => {

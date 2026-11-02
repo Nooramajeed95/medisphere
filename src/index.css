@@ -224,3 +224,12 @@ body { overflow-x: hidden; }
 .result-count { color: var(--muted); font-size: 0.9rem; margin-bottom: 12px; }
 
 .nav-search input { padding: 6px 14px; border: none; border-radius: 20px; width: 170px; font-size: 0.9rem; margin-right: 8px; }
+
+.admin-form { max-width: 100%; margin-bottom: 20px; border: 1px solid var(--border); }
+.row-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.stock-ctl { display: flex; align-items: center; gap: 8px; }
+.stock-ctl button { width: 26px; height: 26px; border: none; border-radius: 6px; background: var(--primary); color: #fff; cursor: pointer; }
+.low, .stock-note { color: #dc2626; font-weight: 600; font-size: 0.85rem; }
+.field-error { color: #b91c1c; font-size: 0.8rem; margin-top: -6px; }
+.info { background: #dbeafe; color: #1e40af; padding: 10px; border-radius: 8px; font-size: 0.9rem; }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; }

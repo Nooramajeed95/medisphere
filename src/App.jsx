@@ -19,6 +19,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminAppointments from "./pages/admin/AdminAppointments";
+import AdminProducts from "./pages/admin/AdminProducts";
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="orders" element={<AdminOrders />} />
+            <Route path="products" element={<AdminProducts />} />
             <Route path="appointments" element={<AdminAppointments />} />
           </Route>
           <Route path="*" element={<h2>Page not found</h2>} />

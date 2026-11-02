@@ -20,6 +20,7 @@ export default function AdminLayout() {
           <NavLink to="/admin" end>Dashboard</NavLink>
           <NavLink to="/admin/orders">Orders</NavLink>
           <NavLink to="/admin/appointments">Appointments</NavLink>
+          <NavLink to="/admin/products">Products</NavLink>
           <button className="btn btn-outline small" onClick={handleLogout}>Admin Logout</button>
         </nav>
       </div>
