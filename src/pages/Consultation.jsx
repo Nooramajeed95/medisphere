@@ -22,6 +22,23 @@ export default function Consultation() {
   const [appointments, setAppointments] = useState(() => (user ? getUserAppointments(user.email) : []));
   const today = new Date().toISOString().split("T")[0];
 
+  const [docSearch, setDocSearch] = useState("");
+  const [specialty, setSpecialty] = useState("All");
+  const [docSort, setDocSort] = useState("default");
+  const specialties = ["All", ...new Set(doctors.map((d) => d.specialty))];
+
+  const shown = doctors.filter(
+    (d) =>
+      d.name.toLowerCase().includes(docSearch.toLowerCase()) &&
+      (specialty === "All" || d.specialty === specialty)
+  );
+  if (docSort === "az") shown.sort((a, b) => a.name.localeCompare(b.name));
+  if (docSort === "za") shown.sort((a, b) => b.name.localeCompare(a.name));
+  if (docSort === "rating") shown.sort((a, b) => b.rating - a.rating);
+  if (docSort === "exp") shown.sort((a, b) => parseInt(b.experience) - parseInt(a.experience));
+
+
+
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const selectDoctor = (d) => {
@@ -62,8 +79,31 @@ export default function Consultation() {
       <h2 className="section-title">Our Specialist Doctors</h2>
       <p className="section-sub">Experienced professionals dedicated to your health and wellbeing.</p>
 
+        <div className="filter-bar">
+        <input
+          type="text"
+          className="grow"
+          placeholder="Search doctor by name..."
+          value={docSearch}
+          onChange={(e) => setDocSearch(e.target.value)}
+        />
+        <select value={specialty} onChange={(e) => setSpecialty(e.target.value)}>
+          {specialties.map((s) => (
+            <option key={s} value={s}>{s === "All" ? "All specialties" : s}</option>
+          ))}
+        </select>
+        <select value={docSort} onChange={(e) => setDocSort(e.target.value)}>
+          <option value="default">Sort: Default</option>
+          <option value="az">Name: A to Z</option>
+          <option value="za">Name: Z to A</option>
+          <option value="rating">Rating: High to Low</option>
+          <option value="exp">Experience: High to Low</option>
+        </select>
+      </div>
+      {shown.length === 0 && <p className="center-msg">No doctors found.</p>}
+
       <div className="doctor-grid">
-        {doctors.map((d) => (
+          {shown.map((d) => (
           <div key={d.id} className={`doctor-card ${doctor?.id === d.id ? "selected" : ""}`}>
             <img className="doc-img" src={d.image} alt={d.name} />
             <h3>{d.name}</h3>

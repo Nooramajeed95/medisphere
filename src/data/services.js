@@ -1,16 +1,16 @@
 const services = [
   { slug: "consultation", icon: "🩺", title: "General Consultation", short: "Meet our qualified doctors for routine checkups and medical advice.", link: "/consultation" },
   { slug: "pharmacy", icon: "💊", title: "Pharmacy", short: "Get trusted medicines and essentials directly from our pharmacy.", link: "/products" },
-  {
+    {
     slug: "lab-tests", icon: "🧪", title: "Lab Tests",
     short: "Access accurate diagnostic tests and reports quickly and securely.",
-    intro: "Book common diagnostic tests and receive your reports digitally. Prices below are sample values for this demo.",
+    intro: "Book common diagnostic tests and receive your reports digitally.",
     items: [
-      { title: "Complete Blood Count (CBC)", text: "Rs. 600 · Report in 24 hours" },
-      { title: "Blood Sugar (Fasting)", text: "Rs. 250 · Same-day report" },
-      { title: "Lipid Profile", text: "Rs. 1500 · Report in 24 hours" },
-      { title: "Liver Function Test", text: "Rs. 1400 · Report in 24 hours" },
-      { title: "Thyroid Profile", text: "Rs. 1800 · Report in 48 hours" },
+      { title: "Complete Blood Count (CBC)", price: 600, text: "Report in 24 hours" },
+      { title: "Blood Sugar (Fasting)", price: 250, text: "Same-day report" },
+      { title: "Lipid Profile", price: 1500, text: "Report in 24 hours" },
+      { title: "Liver Function Test", price: 1400, text: "Report in 24 hours" },
+      { title: "Thyroid Profile", price: 1800, text: "Report in 48 hours" },
     ],
     cta: { label: "Book a Consultation", to: "/consultation" },
   },
@@ -28,13 +28,13 @@ const services = [
   {
     slug: "vaccination", icon: "💉", title: "Vaccination",
     short: "Stay protected with our safe and reliable vaccination services.",
-    intro: "Routine and travel vaccines for adults and children, given by trained staff. Availability and prices are sample values for this demo.",
+    intro: "Routine and travel vaccines for adults and children, given by trained staff.",
     items: [
-      { title: "Seasonal Flu Vaccine", text: "Adults and children · Rs. 1500" },
-      { title: "Hepatitis B", text: "3-dose course · Rs. 1200 per dose" },
-      { title: "Typhoid", text: "Single dose · Rs. 1800" },
-      { title: "Tetanus", text: "Booster · Rs. 600" },
-      { title: "Child Immunization", text: "As per the national schedule" },
+      { title: "Seasonal Flu Vaccine", price: 1500, text: "Adults and children" },
+      { title: "Hepatitis B", price: 1200, text: "3-dose course, price per dose" },
+      { title: "Typhoid", price: 1800, text: "Single dose" },
+      { title: "Tetanus", price: 600, text: "Booster" },
+      { title: "Child Immunization", price: 800, text: "As per the national schedule" },
     ],
     cta: { label: "Book a Consultation", to: "/consultation" },
   },

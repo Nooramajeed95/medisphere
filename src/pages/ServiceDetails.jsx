@@ -23,6 +23,9 @@ function ServicePage({ slug }) {
     user ? getUserAppointments(user.email).filter((a) => a.service === slug) : [];
   const [bookings, setBookings] = useState(loadBookings);
   const today = new Date().toISOString().split("T")[0];
+  const [sort, setSort] = useState("default");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   if (!service || !service.items) {
     return <p>Service not found. <Link to="/">Back to Home</Link></p>;
@@ -31,6 +34,17 @@ function ServicePage({ slug }) {
   const bookable = slug === "lab-tests" || slug === "vaccination";
   const isTele = slug === "telemedicine";
   const isEmergency = slug === "emergency-care";
+    let items = service.items.filter(
+    (i) =>
+      !bookable ||
+      ((minPrice === "" || i.price >= Number(minPrice)) &&
+        (maxPrice === "" || i.price <= Number(maxPrice)))
+  );
+  if (bookable && sort === "az") items.sort((a, b) => a.title.localeCompare(b.title));
+  if (bookable && sort === "za") items.sort((a, b) => b.title.localeCompare(a.title));
+  if (bookable && sort === "low") items.sort((a, b) => a.price - b.price);
+  if (bookable && sort === "high") items.sort((a, b) => b.price - a.price);
+
   const showForm = isTele || isEmergency || (bookable && selected);
   const formTitle = isEmergency
     ? "Request Emergency Help"
@@ -97,14 +111,30 @@ function ServicePage({ slug }) {
     <div className="svc-detail">
       <div className="service-icon">{service.icon}</div>
       <h2>{service.title}</h2>
-      <p className="muted">{service.intro}</p>
+        <p className="muted">{service.intro}</p>
+
+      {bookable && (
+        <div className="filter-bar">
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="default">Sort: Default</option>
+            <option value="az">Name: A to Z</option>
+            <option value="za">Name: Z to A</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+          </select>
+          <input type="number" min="0" placeholder="Min Rs." value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+          <input type="number" min="0" placeholder="Max Rs." value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+          <button type="button" className="btn btn-outline small" onClick={() => { setSort("default"); setMinPrice(""); setMaxPrice(""); }}>Clear</button>
+        </div>
+      )}
+      {bookable && items.length === 0 && <p>Nothing matches this price range.</p>}
 
       <div>
-        {service.items.map((item) => (
+        {items.map((item) => (
           <div key={item.title} className="svc-item">
             <div>
               <strong>{item.title}</strong>
-              <div className="muted">{item.text}</div>
+                            <div className="muted">{item.price ? `Rs. ${item.price} · ` : ""}{item.text}</div>
             </div>
             {bookable && (
               <button

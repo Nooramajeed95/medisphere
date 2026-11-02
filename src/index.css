@@ -217,3 +217,8 @@ body { overflow-x: hidden; }
 .datebar { padding: 0 0 8px; }
 
 :root:not([data-theme="dark"]) { --bar: #1d4a8a; --footer: #1d4a8a; }
+
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.filter-bar .grow { flex: 1; min-width: 180px; }
+.filter-bar input[type="number"] { width: 130px; }
+.result-count { color: var(--muted); font-size: 0.9rem; margin-bottom: 12px; }
