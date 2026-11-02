@@ -10,6 +10,13 @@ export default function Navbar() {
   const { isAdmin } = useAdmin();
   const navigate = useNavigate();
   const [dark, setDark] = useState(() => localStorage.getItem("medisphere-theme") === "dark");
+    const [term, setTerm] = useState("");
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const q = term.trim();
+    navigate(q ? `/products?q=${encodeURIComponent(q)}` : "/products");
+    setTerm("");
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
@@ -28,6 +35,9 @@ export default function Navbar() {
         MediSphere
       </Link>
       <nav>
+        <form className="nav-search" onSubmit={handleSearch}>
+          <input type="search" placeholder="Search medicines..." value={term} onChange={(e) => setTerm(e.target.value)} />
+        </form>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/products">Pharmacy</NavLink>
         <NavLink to="/consultation">Consultation</NavLink>
@@ -51,4 +61,4 @@ export default function Navbar() {
       </nav>
     </header>
   );
-}
+}B

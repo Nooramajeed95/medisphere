@@ -1,5 +1,5 @@
-import { useState } from "react";
-import products from "../data/products";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 
 const categories = ["All", ...new Set(products.map((p) => p.category))];
@@ -7,7 +7,9 @@ const lowest = Math.min(...products.map((p) => p.price));
 const highest = Math.max(...products.map((p) => p.price));
 
 export default function Products() {
-  const [search, setSearch] = useState("");
+    const [params] = useSearchParams();
+  const [search, setSearch] = useState(params.get("q") || "");
+  useEffect(() => { setSearch(params.get("q") || ""); }, [params]);
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("default");
   const [minPrice, setMinPrice] = useState("");
