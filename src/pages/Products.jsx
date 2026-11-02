@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import products from "../data/products";
 
 const categories = ["All", ...new Set(products.map((p) => p.category))];
 const lowest = Math.min(...products.map((p) => p.price));
