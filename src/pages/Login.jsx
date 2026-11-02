@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useAdmin } from "../context/AdminContext";
+import PasswordInput from "../components/PasswordInput";
 import { isEmail } from "../utils/validate";
 
 export default function Login() {
@@ -43,7 +44,7 @@ export default function Login() {
         {error && <p className="error">{error}</p>}
         <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} />
         {errors.email && <small className="field-error">{errors.email}</small>}
-        <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} />
+        <PasswordInput name="password" placeholder="Password" value={form.password} onChange={handleChange} />
         {errors.password && <small className="field-error">{errors.password}</small>}
         <button className="btn" type="submit">Login</button>
         <p className="muted">New here? <Link to="/register" state={{ from }}>Create an account</Link></p>

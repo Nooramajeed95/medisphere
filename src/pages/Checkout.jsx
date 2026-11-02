@@ -12,7 +12,7 @@ export default function Checkout() {
   const [form, setForm] = useState({
     name: user ? user.name : "",
     phone: user ? user.phone : "",
-    address: "",
+    address: user ? user.address || "" : "",
   });
   const [orderId, setOrderId] = useState(null);
 
